@@ -18,4 +18,4 @@ $(BUILD_DIR)/kernel.bin: kernel/kernel.asm
 	nasm -f bin kernel/kernel.asm -o $(BUILD_DIR)/kernel.bin
 
 start: all
-	qemu-system-i386 -fda $(BUILD_DIR)/floppy.img
+	qemu-system-i386 -drive file=$(BUILD_DIR)/floppy.img,index=0,if=floppy,format=raw
