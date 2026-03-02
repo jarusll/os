@@ -45,7 +45,7 @@ _start:
     mov ch, 0
     mov dh, 0
     mov cl, 2
-    mov al, 1 ; read 1 sector ie 512b
+    mov al, 50 ; read 1 sector ie 512b
     ; read to es:bx
     mov bx, KERNEL_ADDR
     int DISK_INT

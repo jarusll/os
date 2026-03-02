@@ -19,6 +19,8 @@ _start:
     mov al, 3
     int VIDEO_INT
 
+    jmp halt
+
     ; ; extended memory size determine
     ; mov ah, 0x88
     ; int SYSTEM_INT
