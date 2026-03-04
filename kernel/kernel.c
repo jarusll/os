@@ -178,15 +178,3 @@ void draw(volatile unsigned short *vga)
     }
 }
 
-void log(char *message)
-{
-    volatile unsigned short *vga = (unsigned short *)0xB8000;
-    for (unsigned int i = 0; message[i] != '\0'; i++)
-    {
-        drawc(i + 1, 20, (char)message[i], vga);
-    }
-}
-
-void stdout(char *message)
-{
-}
