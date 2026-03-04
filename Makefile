@@ -28,5 +28,4 @@ $(BUILD_DIR)/kernel.bin: kernel/kernel.c
 
 start: all
 	qemu-system-i386 \
-		-drive file=$(BUILD_DIR)/floppy.img,index=0,if=floppy,format=raw \
-		-S -gdb tcp::1234
+		-drive file=$(BUILD_DIR)/floppy.img,index=0,if=floppy,format=raw
