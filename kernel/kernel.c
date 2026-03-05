@@ -1,5 +1,3 @@
-#include <stdint.h>
-
 #define TOP_LEFT 201
 #define TOP_RIGHT 187
 #define BOTTOM_LEFT 200
