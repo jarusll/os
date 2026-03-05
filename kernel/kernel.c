@@ -39,9 +39,10 @@ void drawxc(unsigned short x,
 void _start()
 {
     unsigned short ax, bx, cx, dx;
+    char *command = "Hello, World!";
 
     // init environment
-    static Environment env = {
+    Environment env = {
         .cursor = {1, 1},
         .commandContext = {
             .cursor = 0,
@@ -71,39 +72,40 @@ void _start()
 
     while (1)
     {
-        unsigned char key;
-        unsigned char scancode;
-        unsigned char no_key;
-        ax = 0x0100;
+        // unsigned char key;
+        // unsigned char scancode;
+        // unsigned char no_key;
+        // ax = 0x0100;
         // read keyboard status
         // asm volatile(
         //     "int 0x16\n\t"
-        //     "setz %1\n\t" // %1 = 1 if no key
-        //     : "+a"(ax), "=q"(no_key)
-        //     :
+        //     "setz %0\n\t" // %1 = 1 if no key
+        //     : "=q"(no_key)
+        //     : "a"(ax)
         //     : "cc");
-        // if (no_key)
-        // {
-        //     drawc(10, 10, 'n', vga);
-        //     draw(vga);
-        //     goto wait;
-        //     continue;
-        // }
-
         // key = ax & 0xFF;
         // scancode = (ax >> 8) & 0xFF;
         draw(vga);
+        int cursor = 0;
+        while (command[cursor] != '\0')
+        {
+            vga[1 * 80 + cursor + 1] = (0x1E << 8) | command[cursor];
+            cursor++;
+        }
 
         // wait
-    wait:
-        ax = 0x0000;
+        unsigned char success;
+        ax = 0x8600;
+        cx = 0;
+        dx = 33333;
         asm volatile(
-            "int 0x1a\n\t"
-            : "+a"(ax), "=c"(cx), "=d"(dx)
-            :
-            :);
-        drawxc(10, 10, cx, vga);
-        drawxc(10, 11, dx, vga);
+            "int 0x15\n\t"
+            "setc al\n\t"
+            "mov %0, al\n\t"
+            : "=q"(success)
+            : "a"(0x8600), "c"(0), "d"(33333)
+            : "cc");
+        bx = 0x0000;
     }
 }
 

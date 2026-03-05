@@ -1,6 +1,6 @@
 BUILD_DIR = build
-GCC_FLAGS = -m16 -ffreestanding -nostdlib -nostartfiles -fno-builtin -nodefaultlibs -std=gnu11 -fno-pic -fno-stack-protector -masm=intel -g
-LD_FLAGS = -m elf_i386 -nostdlib -T kernel/link.ld
+GCC_FLAGS = -m16 -ffreestanding -masm=intel -ggdb -nostdlib
+LD_FLAGS = -nostdlib -T kernel/link.ld
 ASM_FLAGS = -S -masm=intel
 GCC=~/opt/cross/bin/i686-elf-gcc
 LD=~/opt/cross/bin/i686-elf-ld
