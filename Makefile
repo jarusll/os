@@ -2,6 +2,8 @@ BUILD_DIR = build
 GCC_FLAGS = -m16 -ffreestanding -nostdlib -nostartfiles -fno-builtin -nodefaultlibs -std=gnu11 -fno-pic -fno-stack-protector -masm=intel -g
 LD_FLAGS = -m elf_i386 -nostdlib -T kernel/link.ld
 ASM_FLAGS = -S -masm=intel
+GCC=~/opt/cross/bin/i686-elf-gcc
+LD=~/opt/cross/bin/i686-elf-ld
 
 .PHONY: all clean floppy
 
@@ -21,9 +23,9 @@ $(BUILD_DIR)/boot.bin: boot/boot.asm
 
 $(BUILD_DIR)/kernel.bin: kernel/kernel.c
 	mkdir -p $(BUILD_DIR)
-	gcc $(ASM_FLAGS) kernel/kernel.c -o $(BUILD_DIR)/kernel.lst
-	gcc $(GCC_FLAGS) -c kernel/kernel.c -o $(BUILD_DIR)/kernel.o
-	ld $(LD_FLAGS) $(BUILD_DIR)/kernel.o -o $(BUILD_DIR)/kernel.elf
+	$(GCC) $(ASM_FLAGS) kernel/kernel.c -o $(BUILD_DIR)/kernel.lst
+	$(GCC) $(GCC_FLAGS) -c kernel/kernel.c -o $(BUILD_DIR)/kernel.o
+	$(LD) $(LD_FLAGS) $(BUILD_DIR)/kernel.o -o $(BUILD_DIR)/kernel.elf
 	objcopy -O binary $(BUILD_DIR)/kernel.elf $(BUILD_DIR)/kernel.bin
 
 start: all
